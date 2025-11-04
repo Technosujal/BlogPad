@@ -137,8 +137,16 @@ const XPActivity = mongoose.model('XPActivity', xpActivitySchema);
 
 // Middleware
 app.use(cors({
-    origin: true,
-    credentials: true
+    origin: process.env.NODE_ENV === 'production' ? [
+        'https://blogpad-sujal.vercel.app',
+        'https://techno-blogpad.vercel.app',
+        'https://sujal-blogpad.vercel.app',
+        'https://blogpad-2024.vercel.app',
+        'https://my-blogpad-app.vercel.app'
+    ] : true,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -219,6 +227,7 @@ const checkUsageLimits = async (req, res, next) => {
 
 // User registration
 app.post('/auth/register', async (req, res) => {
+    console.log('Registration attempt:', { body: req.body, env: process.env.NODE_ENV });
     const { username, email, password, name, plan = 'free', billing_cycle = 'monthly' } = req.body;
     
     if (!username || !email || !password || !name) {
@@ -287,7 +296,11 @@ app.post('/auth/register', async (req, res) => {
         
     } catch (error) {
         console.error('Registration error:', error);
-        res.status(500).json({ error: 'Registration failed' });
+        res.status(500).json({ 
+            error: 'Registration failed', 
+            details: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error',
+            timestamp: new Date().toISOString()
+        });
     }
 });
 
