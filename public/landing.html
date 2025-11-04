@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlogSpace - Personal Blogging Platform</title>
+    <link rel="stylesheet" href="landing.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-pen-fancy"></i>
+                <span>BlogSpace</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#pricing" class="nav-link">Plans & Pricing</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="/" class="nav-link login">Log in</a>
+                <a href="/register" class="nav-btn">Get started</a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-star"></i>
+                    <span>4.5 stars</span>
+                    <span>2,000+ happy writers</span>
+                </div>
+                <h1 class="hero-title">
+                    Personal blogging,<br>
+                    done right
+                </h1>
+                <p class="hero-subtitle">
+                    All from the people who know blogging best.<br>
+                    Beautiful themes, powerful editor, secure hosting,<br>
+                    and expert support.
+                </p>
+                <button class="hero-cta" onclick="scrollToPricing()">
+                    Get started
+                </button>
+            </div>
+            <div class="hero-visual">
+                <div class="mockup-container">
+                    <div class="mockup-screen">
+                        <div class="mockup-header">
+                            <div class="mockup-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="mockup-content">
+                            <div class="mockup-editor">
+                                <h3>The Shore Spa</h3>
+                                <p>Welcome to our beautiful spa resort nestled by the ocean...</p>
+                                <div class="mockup-stats">
+                                    <div class="stat-item">
+                                        <span class="stat-number">99.99%</span>
+                                        <span class="stat-label">Reliable Uptime</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mockup-gallery">
+                                <div class="gallery-grid">
+                                    <div class="gallery-item"></div>
+                                    <div class="gallery-item"></div>
+                                    <div class="gallery-item"></div>
+                                    <div class="gallery-item"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Everything you need to start blogging</h2>
+                <p>Professional features designed for serious bloggers</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <h3>Powerful Editor</h3>
+                    <p>Write with our intuitive editor that gets out of your way so you can focus on your content.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>Beautiful Themes</h3>
+                    <p>Choose from professionally designed themes that make your blog look amazing on any device.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure & Fast</h3>
+                    <p>Your blog is automatically backed up and secured with industry-leading technology.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Analytics</h3>
+                    <p>Track your progress with detailed analytics about your posts and writing habits.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Ready</h3>
+                    <p>Write from anywhere with our responsive design that works perfectly on all devices.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Expert Support</h3>
+                    <p>Get help when you need it from our team of blogging experts and community.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2>Choose your perfect plan</h2>
+                <p>Start free and upgrade as your blog grows</p>
+                
+                <!-- Billing Toggle -->
+                <div class="billing-toggle">
+                    <span class="billing-label monthly-label active">Monthly</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="billingToggle">
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <span class="billing-label yearly-label">Yearly <span class="save-badge">Save 20%</span></span>
+                </div>
+            </div>
+            
+            <div class="pricing-grid">
+                <!-- Free Plan -->
+                <div class="pricing-card">
+                    <div class="card-header">
+                        <h3>Personal</h3>
+                        <div class="price-container">
+                            <span class="price monthly-price">$0</span>
+                            <span class="price yearly-price" style="display: none;">$0</span>
+                            <span class="period">/ month</span>
+                        </div>
+                        <p class="plan-description">Perfect for getting started</p>
+                    </div>
+                    <div class="card-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Up to 5 blog posts</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Basic themes</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Mobile responsive</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Community support</span>
+                        </div>
+                        <div class="feature-item disabled">
+                            <i class="fas fa-times"></i>
+                            <span>Custom domain</span>
+                        </div>
+                        <div class="feature-item disabled">
+                            <i class="fas fa-times"></i>
+                            <span>Analytics</span>
+                        </div>
+                    </div>
+                    <button class="plan-button" data-plan="free" data-price="0">
+                        Start for free
+                    </button>
+                </div>
+
+                <!-- Premium Plan -->
+                <div class="pricing-card popular">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="card-header">
+                        <h3>Premium</h3>
+                        <div class="price-container">
+                            <span class="price monthly-price">$9</span>
+                            <span class="price yearly-price" style="display: none;">$7</span>
+                            <span class="period">/ month</span>
+                        </div>
+                        <p class="plan-description">For serious bloggers</p>
+                    </div>
+                    <div class="card-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Unlimited blog posts</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Premium themes</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Custom domain</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Advanced analytics</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Priority support</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>SEO tools</span>
+                        </div>
+                    </div>
+                    <button class="plan-button popular-btn" data-plan="premium" data-price="9">
+                        Start Premium
+                    </button>
+                </div>
+
+                <!-- Business Plan -->
+                <div class="pricing-card">
+                    <div class="card-header">
+                        <h3>Business</h3>
+                        <div class="price-container">
+                            <span class="price monthly-price">$25</span>
+                            <span class="price yearly-price" style="display: none;">$20</span>
+                            <span class="period">/ month</span>
+                        </div>
+                        <p class="plan-description">For professional bloggers</p>
+                    </div>
+                    <div class="card-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Everything in Premium</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Multiple authors</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Advanced customization</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Email marketing tools</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>White-label options</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>24/7 phone support</span>
+                        </div>
+                    </div>
+                    <button class="plan-button" data-plan="business" data-price="25">
+                        Start Business
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to start your blogging journey?</h2>
+            <p>Join thousands of writers who trust BlogSpace for their personal blogging needs</p>
+            <div class="cta-buttons">
+                <button class="cta-primary" onclick="scrollToPricing()">Choose your plan</button>
+                <button class="cta-secondary" onclick="window.location.href='/'">Try free demo</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="brand">
+                        <i class="fas fa-pen-fancy"></i>
+                        <span>BlogSpace</span>
+                    </div>
+                    <p>The best platform for personal blogging</p>
+                </div>
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Product</h4>
+                        <a href="#features">Features</a>
+                        <a href="#pricing">Pricing</a>
+                        <a href="/">Demo</a>
+                    </div>
+                    <div class="link-group">
+                        <h4>Company</h4>
+                        <a href="#about">About</a>
+                        <a href="#">Support</a>
+                        <a href="#">Privacy</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 BlogSpace. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="landing.js"></script>
+</body>
+</html>

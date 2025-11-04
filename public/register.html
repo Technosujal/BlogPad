@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join BlogPad - Start Your Writing Journey</title>
+    <link rel="stylesheet" href="auth-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="auth-page">
+    <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        <div class="shape shape-5"></div>
+    </div>
+    <div class="auth-container">
+        <div class="auth-left">
+            <div class="brand-section">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-feather-alt"></i>
+                    </div>
+                    <span class="logo-text">BlogPad</span>
+                </div>
+                <h1>Start Writing Today</h1>
+                <p class="tagline">Join thousands of writers who trust BlogPad for their blogging needs</p>
+                
+                <div class="features">
+                    <div class="feature-item">
+                        <i class="fas fa-rocket"></i>
+                        <span>Quick Setup</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Secure & Private</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Mobile Friendly</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="auth-right">
+            <div class="auth-card">
+                <div class="card-header">
+                    <h2>Create Account</h2>
+                    <p>Start your blogging journey with us</p>
+                </div>
+            
+                <div id="planInfo" class="plan-info" style="display: none;">
+                    <div class="selected-plan">
+                        <h3 id="selectedPlanName">Premium Plan</h3>
+                        <p id="selectedPlanPrice">$9/month</p>
+                        <p id="selectedPlanFeatures">Unlimited posts, Custom domain, Analytics</p>
+                    </div>
+                </div>
+
+                <form id="registerForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="name" placeholder="Enter your full name" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-at"></i>
+                            <input type="text" id="username" placeholder="Choose a username" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="password" placeholder="Create a strong password" required>
+                            <button type="button" class="toggle-password" onclick="togglePassword()">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="password-strength" id="passwordStrength"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="terms" required>
+                            <span class="checkmark"></span>
+                            I agree to the <a href="#" class="terms-link">Terms of Service</a> and <a href="#" class="terms-link">Privacy Policy</a>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn primary" id="submitBtn">
+                        <span>Create Account</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    
+                    <div id="error" class="error-message"></div>
+                </form>
+            
+                <div class="auth-divider">
+                    <span>or</span>
+                </div>
+                
+                <div class="social-login">
+                    <button class="social-btn google" onclick="signInWithGoogle()">
+                        <i class="fab fa-google"></i>
+                        Sign up with Google
+                    </button>
+                </div>
+                
+                <div class="auth-switch">
+                    <p>Already have an account? <a href="/" class="signup-link">Sign in here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleBtn = document.querySelector('.toggle-password i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleBtn.className = 'fas fa-eye-slash';
+            } else {
+                passwordInput.type = 'password';
+                toggleBtn.className = 'fas fa-eye';
+            }
+        }
+        
+        function checkPasswordStrength(password) {
+            const strengthIndicator = document.getElementById('passwordStrength');
+            let strength = 0;
+            let feedback = '';
+            
+            if (password.length >= 8) strength++;
+            if (/[a-z]/.test(password)) strength++;
+            if (/[A-Z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+            
+            switch (strength) {
+                case 0:
+                case 1:
+                    feedback = '<span style="color: #ef4444;">Weak</span>';
+                    break;
+                case 2:
+                case 3:
+                    feedback = '<span style="color: #f59e0b;">Medium</span>';
+                    break;
+                case 4:
+                case 5:
+                    feedback = '<span style="color: #10b981;">Strong</span>';
+                    break;
+            }
+            
+            strengthIndicator.innerHTML = password.length > 0 ? `Password strength: ${feedback}` : '';
+        }
+        
+        document.getElementById('password').addEventListener('input', (e) => {
+            checkPasswordStrength(e.target.value);
+        });
+        
+        // Google Sign-In
+        function signInWithGoogle() {
+            // Simple redirect to Google OAuth (replace with actual Google OAuth setup)
+            const googleAuthUrl = 'https://accounts.google.com/oauth/authorize?' +
+                'client_id=YOUR_GOOGLE_CLIENT_ID&' +
+                'redirect_uri=' + encodeURIComponent(window.location.origin + '/auth/google/callback') + '&' +
+                'response_type=code&' +
+                'scope=email profile';
+            
+            // For demo purposes, show alert
+            alert('Google Sign-In would redirect to Google OAuth. This requires Google OAuth setup in production.');
+            // window.location.href = googleAuthUrl;
+        }
+        
+        // Extract plan information from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedPlan = urlParams.get('plan') || 'free';
+        const selectedPrice = urlParams.get('price') || '0';
+        const selectedBilling = urlParams.get('billing') || 'monthly';
+        
+        // Display plan info if not free
+        if (selectedPlan !== 'free') {
+            const planInfo = document.getElementById('planInfo');
+            const planName = document.getElementById('selectedPlanName');
+            const planPrice = document.getElementById('selectedPlanPrice');
+            const planFeatures = document.getElementById('selectedPlanFeatures');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            planInfo.style.display = 'block';
+            planName.textContent = selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1) + ' Plan';
+            planPrice.textContent = `$${selectedPrice}/${selectedBilling}`;
+            
+            // Set features based on plan
+            const features = {
+                premium: 'Unlimited posts, Custom domain, Analytics, Premium themes, Priority support',
+                business: 'Everything in Premium + Multiple authors, Email marketing, White-label options, 24/7 phone support'
+            };
+            planFeatures.textContent = features[selectedPlan] || '';
+            submitBtn.textContent = selectedPlan === 'premium' || selectedPlan === 'business' ? 'Start Free Trial' : 'Create Account';
+        }
+        
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const terms = document.getElementById('terms').checked;
+            const errorDiv = document.getElementById('error');
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            
+            errorDiv.textContent = '';
+            
+            if (!terms) {
+                errorDiv.textContent = 'Please accept the Terms of Service and Privacy Policy';
+                return;
+            }
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
+            
+            try {
+                const registrationData = {
+                    name, 
+                    username, 
+                    email, 
+                    password,
+                    plan: selectedPlan,
+                    billing_cycle: selectedBilling
+                };
+                
+                const response = await fetch('/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify(registrationData)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    submitBtn.innerHTML = '<i class="fas fa-check"></i> Success!';
+                    // For paid plans, show success with trial info
+                    if (selectedPlan !== 'free') {
+                        setTimeout(() => {
+                            alert(`Account created successfully! You now have a 7-day free trial of the ${selectedPlan} plan.`);
+                            window.location.href = '/dashboard';
+                        }, 1000);
+                    } else {
+                        setTimeout(() => {
+                            window.location.href = '/dashboard';
+                        }, 1000);
+                    }
+                } else {
+                    errorDiv.textContent = data.error;
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<span>Create Account</span><i class="fas fa-arrow-right"></i>';
+                }
+            } catch (error) {
+                errorDiv.textContent = 'Registration failed. Please try again.';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span>Create Account</span><i class="fas fa-arrow-right"></i>';
+            }
+        });
+    </script>
+</body>
+</html>

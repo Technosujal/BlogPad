@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - BlogPad</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="usage-styles.css">
+    <link rel="stylesheet" href="payment-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="payment-container">
+            <div class="payment-header">
+                <h1><i class="fas fa-credit-card"></i> Complete Your Purchase</h1>
+                <p>Secure payment powered by BlogPad</p>
+            </div>
+            
+            <div class="payment-content">
+                <div class="plan-summary">
+                    <h3>Order Summary</h3>
+                    <div class="plan-details">
+                        <div class="plan-name" id="planName">Premium Plan</div>
+                        <div class="plan-price" id="planPrice">$9.00/month</div>
+                        <div class="plan-features" id="planFeatures">
+                            <ul>
+                                <li>100 posts per month</li>
+                                <li>Unlimited total posts</li>
+                                <li>Priority support</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="total">
+                        <strong>Total: <span id="totalPrice">$9.00</span></strong>
+                    </div>
+                </div>
+                
+                <div class="payment-form">
+                    <div class="payment-methods">
+                        <h3>Choose Payment Method</h3>
+                        <div class="payment-tabs">
+                            <button type="button" class="tab-btn active" data-method="upi">
+                                <i class="fas fa-qrcode"></i> Pay with UPI
+                            </button>
+                            <button type="button" class="tab-btn" data-method="card">
+                                <i class="fas fa-credit-card"></i> Pay with Card
+                            </button>
+                            <button type="button" class="tab-btn" data-method="bank">
+                                <i class="fas fa-university"></i> Bank Transfer
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- UPI Payment Section -->
+                    <div id="upiPayment" class="payment-section active">
+                        <div class="upi-container">
+                            <h4>Scan QR Code to Pay</h4>
+                            <div class="qr-code-container">
+                                <div class="qr-wrapper">
+<img src="abc.jpg" alt="UPI QR Code" style="width: 280px; height: 280px; border-radius: 12px; object-fit: cover;">
+                                </div>
+                            </div>
+                            <p class="upi-instructions">Scan this QR code with any UPI app</p>
+                            <div class="upi-apps">
+                                <div class="upi-app">
+                                    <i class="fab fa-google-pay gpay"></i>
+                                    <span>Google Pay</span>
+                                </div>
+                                <div class="upi-app">
+                                    <i class="fas fa-mobile-alt phonepe"></i>
+                                    <span>PhonePe</span>
+                                </div>
+                                <div class="upi-app">
+                                    <i class="fas fa-wallet paytm"></i>
+                                    <span>Paytm</span>
+                                </div>
+                                <div class="upi-app">
+                                    <i class="fas fa-university bhim"></i>
+                                    <span>BHIM</span>
+                                </div>
+                            </div>
+                            <div class="upi-payment-options">
+                                <div class="upi-id-section">
+                                    <h5>Pay to UPI ID</h5>
+                                    <div class="upi-id-box">
+                                        <strong>9682146011@superyes</strong>
+                                        <button onclick="copyUPIId()" class="copy-btn">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                    <button onclick="payNowUPI()" class="btn btn-success" style="width: 100%; margin-top: 1rem;">
+                                        <i class="fas fa-mobile-alt"></i> Pay Now
+                                    </button>
+                                </div>
+                                <div class="upi-amount">
+                                    <strong>Amount: ₹<span id="upiAmount">750</span></strong>
+                                </div>
+                                <div class="upi-verification">
+                                    <input type="text" id="transactionId" placeholder="Enter Transaction ID" class="transaction-input" required>
+                                    <small>Enter the 12-digit transaction ID from your payment app</small>
+                                </div>
+                                <div class="upi-actions">
+                                    <button type="button" class="btn btn-primary" onclick="confirmUPIPayment()">
+                                        <i class="fas fa-check"></i> Submit Payment Details
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card Payment Section -->
+                    <div id="cardPayment" class="payment-section">
+                        <form id="paymentForm">
+                            <h4>Card Information</h4>
+                        
+                        <div class="form-group">
+                            <label for="cardNumber">Card Number</label>
+                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                            <div class="card-icons">
+                                <i class="fab fa-cc-visa"></i>
+                                <i class="fab fa-cc-mastercard"></i>
+                                <i class="fab fa-cc-amex"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiryDate">Expiry Date</label>
+                                <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV</label>
+                                <input type="text" id="cvv" placeholder="123" maxlength="4" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cardName">Cardholder Name</label>
+                            <input type="text" id="cardName" placeholder="John Doe" required>
+                        </div>
+                        
+                        <div class="billing-address">
+                            <h4>Billing Address</h4>
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <input type="text" id="address" placeholder="123 Main Street" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" id="city" placeholder="New York" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="zipCode">ZIP Code</label>
+                                    <input type="text" id="zipCode" placeholder="10001" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="payment-actions">
+                            <button type="button" onclick="goBack()" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Back
+                            </button>
+                            <button type="submit" class="btn btn-primary" id="payBtn">
+                                <i class="fas fa-lock"></i> Pay Securely
+                            </button>
+                        </div>
+                        
+                            <div id="paymentError" class="error-message"></div>
+                        </form>
+                    </div>
+                    
+                    <!-- Bank Transfer Section -->
+                    <div id="bankPayment" class="payment-section">
+                        <div class="bank-container">
+                            <h4>Bank Transfer Details</h4>
+                            <div class="bank-details">
+                                <div class="bank-info">
+                                    <strong>Account Name:</strong> BlogPad Services<br>
+                                    <strong>Account Number:</strong> 110036035620<br>
+                                    <strong>IFSC Code:</strong> CNRB0005838<br>
+                                    <strong>Bank:</strong> Canara Bank<br>
+                                    <strong>Amount:</strong> ₹<span id="bankAmount">750</span>
+                                </div>
+                                <div class="transfer-instructions">
+                                    <p>1. Transfer the exact amount to the above account</p>
+                                    <p>2. Use your email as reference/remark</p>
+                                    <p>3. Click 'I have transferred' after payment</p>
+                                </div>
+                                <div class="bank-actions">
+                                    <button type="button" class="btn btn-primary" onclick="confirmBankTransfer()">
+                                        <i class="fas fa-check"></i> I have transferred
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="security-info">
+                <div class="security-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>256-bit SSL encryption</span>
+                </div>
+                <div class="security-item">
+                    <i class="fas fa-lock"></i>
+                    <span>Secure payment processing</span>
+                </div>
+                <div class="security-item">
+                    <i class="fas fa-undo"></i>
+                    <span>30-day money-back guarantee</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="payment.js"></script>
+</body>
+</html>

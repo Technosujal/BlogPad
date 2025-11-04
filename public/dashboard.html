@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Blog - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="usage-styles.css">
+    <link rel="stylesheet" href="dashboard-enhanced.css">
+    <link rel="stylesheet" href="typing-styles.css">
+    <link rel="stylesheet" href="gamification-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="dashboard">
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-feather-alt"></i>
+                    </div>
+                    <span class="logo-text">BlogPad</span>
+                </div>
+                <button id="darkModeToggle" class="dark-mode-toggle" title="Toggle Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            
+            <div class="sidebar-menu">
+                <div class="menu-item active" data-section="home">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </div>
+                <div class="menu-item" data-section="editor">
+                    <i class="fas fa-edit"></i>
+                    <span>Write</span>
+                </div>
+                <div class="menu-item" data-section="posts">
+                    <i class="fas fa-file-alt"></i>
+                    <span>All Posts</span>
+                </div>
+                <div class="menu-item" data-section="discover">
+                    <i class="fas fa-globe"></i>
+                    <span>Discover</span>
+                </div>
+                <div class="menu-item" data-section="social">
+                    <i class="fas fa-users"></i>
+                    <span>Social</span>
+                </div>
+                <div class="menu-item" data-section="profile">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </div>
+                <div class="menu-item" data-section="typing">
+                    <i class="fas fa-keyboard"></i>
+                    <span>Typing Practice</span>
+                </div>
+                <div class="menu-item" data-section="subscription">
+                    <i class="fas fa-crown"></i>
+                    <span>Subscription</span>
+                </div>
+                <div class="menu-item" data-section="gamification">
+                    <i class="fas fa-trophy"></i>
+                    <span>Achievements</span>
+                </div>
+                <div class="menu-item" data-section="feedback">
+                    <i class="fas fa-comment-dots"></i>
+                    <span>Feedback</span>
+                </div>
+                <div class="menu-item" data-section="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </div>
+            </div>
+            
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="user-details">
+                        <span id="sidebarUserName">Loading...</span>
+                        <button id="logoutBtn" class="logout-link">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Home Section -->
+            <section id="homeSection" class="content-section active">
+                <div class="section-header">
+                    <h1><i class="fas fa-home"></i> Dashboard Home</h1>
+                    <p>Welcome to your personal blog dashboard</p>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="totalPosts">0</span>
+                            <span class="stat-label">Total Posts</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="postsThisMonth">0</span>
+                            <span class="stat-label">This Month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="lastPostDays">0</span>
+                            <span class="stat-label">Days Since Last Post</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="usageInfo" class="usage-section">
+                    <!-- Usage stats will be populated by JavaScript -->
+                </div>
+                
+                <div class="dashboard-widgets">
+                    <div class="widget recent-activity">
+                        <div class="widget-header">
+                            <h3><i class="fas fa-clock"></i> Recent Posts</h3>
+                            <button class="btn btn-sm btn-secondary" onclick="switchSection('posts')">
+                                <i class="fas fa-eye"></i> View All
+                            </button>
+                        </div>
+                        <div id="recentPostsList" class="recent-posts">
+                            <div class="loading">Loading recent posts...</div>
+                        </div>
+                        <button id="quickWriteBtn" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Write New Post
+                        </button>
+                    </div>
+                    
+                    <div class="widget writing-streak">
+                        <div class="widget-header">
+                            <h3><i class="fas fa-fire"></i> Writing Streak</h3>
+                        </div>
+                        <div class="streak-info">
+                            <div class="streak-number" id="streakDays">0</div>
+                            <div class="streak-label">Days</div>
+                            <div class="streak-message" id="streakMessage">Start writing to build your streak!</div>
+                        </div>
+                    </div>
+                    
+                    <div class="widget quick-stats">
+                        <div class="widget-header">
+                            <h3><i class="fas fa-chart-bar"></i> Quick Stats</h3>
+                        </div>
+                        <div class="quick-stats-grid">
+                            <div class="quick-stat">
+                                <span class="stat-value" id="totalWords">0</span>
+                                <span class="stat-label">Total Words</span>
+                            </div>
+                            <div class="quick-stat">
+                                <span class="stat-value" id="avgWordsPerPost">0</span>
+                                <span class="stat-label">Avg Words/Post</span>
+                            </div>
+                            <div class="quick-stat">
+                                <span class="stat-value" id="longestPost">0</span>
+                                <span class="stat-label">Longest Post</span>
+                            </div>
+                            <div class="quick-stat">
+                                <span class="stat-value" id="publishedToday">0</span>
+                                <span class="stat-label">Published Today</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Editor Section -->
+            <section id="editorSection" class="content-section">
+                <div class="section-header">
+                    <h1><i class="fas fa-edit"></i> Write & Edit</h1>
+                    <div class="editor-actions-header">
+                        <button id="newPostBtn" class="btn btn-secondary">
+                            <i class="fas fa-plus"></i> New Post
+                        </button>
+                        <button id="savePostBtn" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Post
+                        </button>
+                        <button id="deletePostBtn" class="btn btn-danger" style="display: none;">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="editor-container">
+                    <div class="editor-main">
+                        <input type="text" id="postTitle" placeholder="Enter your blog title..." class="title-input">
+                        
+                        <div class="post-meta">
+                            <div class="meta-row">
+                                <select id="postCategory" class="category-select">
+                                    <option value="General">General</option>
+                                    <option value="Technology">Technology</option>
+                                    <option value="Lifestyle">Lifestyle</option>
+                                    <option value="Travel">Travel</option>
+                                    <option value="Food">Food</option>
+                                    <option value="Business">Business</option>
+                                    <option value="Health">Health</option>
+                                    <option value="Education">Education</option>
+                                </select>
+                                
+                                <input type="text" id="postTags" placeholder="Add tags (comma separated)" class="tags-input">
+                                
+                                <label class="public-toggle">
+                                    <input type="checkbox" id="isPublic">
+                                    <span>Make Public (Discoverable by others)</span>
+                                </label>
+                            </div>
+                            
+                            <div class="meta-row">
+                                <button type="button" id="uploadImageBtn" class="btn btn-secondary">
+                                    <i class="fas fa-image"></i> Add Image
+                                </button>
+                                <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                                <div id="imagePreview" class="image-preview"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="editor-toolbar">
+                            <button type="button" onclick="formatText('bold')" class="toolbar-btn" title="Bold">
+                                <i class="fas fa-bold"></i>
+                            </button>
+                            <button type="button" onclick="formatText('italic')" class="toolbar-btn" title="Italic">
+                                <i class="fas fa-italic"></i>
+                            </button>
+                            <button type="button" onclick="formatText('underline')" class="toolbar-btn" title="Underline">
+                                <i class="fas fa-underline"></i>
+                            </button>
+                            <button type="button" onclick="formatText('insertOrderedList')" class="toolbar-btn" title="Numbered List">
+                                <i class="fas fa-list-ol"></i>
+                            </button>
+                            <button type="button" onclick="formatText('insertUnorderedList')" class="toolbar-btn" title="Bullet List">
+                                <i class="fas fa-list-ul"></i>
+                            </button>
+                            <button type="button" onclick="insertLink()" class="toolbar-btn" title="Insert Link">
+                                <i class="fas fa-link"></i>
+                            </button>
+                            <div class="toolbar-separator"></div>
+                            <button type="button" id="aiAssistBtn" class="toolbar-btn ai-btn" title="AI Writing Assistant">
+                                <i class="fas fa-robot"></i> AI
+                            </button>
+                        </div>
+                        
+                        <div id="aiAssistPanel" class="ai-assist-panel" style="display: none;">
+                            <div class="ai-panel-header">
+                                <h4><i class="fas fa-robot"></i> AI Writing Assistant</h4>
+                                <button type="button" id="closeAiPanel" class="close-btn">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="ai-panel-content">
+                                <div class="ai-actions">
+                                    <button type="button" onclick="aiAssist('grammar')" class="ai-action-btn">
+                                        <i class="fas fa-spell-check"></i> Check Grammar
+                                    </button>
+                                    <button type="button" onclick="aiAssist('improve')" class="ai-action-btn">
+                                        <i class="fas fa-magic"></i> Improve Text
+                                    </button>
+                                    <button type="button" onclick="aiAssist('suggestions')" class="ai-action-btn">
+                                        <i class="fas fa-lightbulb"></i> Get Suggestions
+                                    </button>
+                                </div>
+                                <div id="aiResult" class="ai-result" style="display: none;">
+                                    <div class="ai-result-header">
+                                        <span id="aiResultTitle">AI Result</span>
+                                        <button type="button" id="applyAiResult" class="btn btn-sm btn-primary">
+                                            Apply
+                                        </button>
+                                    </div>
+                                    <div id="aiResultContent" class="ai-result-content"></div>
+                                </div>
+                                <div id="aiLoading" class="ai-loading" style="display: none;">
+                                    <i class="fas fa-spinner fa-spin"></i> AI is analyzing your text...
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="editor-stats">
+                            <span id="wordCount">0 words</span>
+                            <span id="charCount">0 characters</span>
+                            <span id="readingTime">0 min read</span>
+                        </div>
+                        
+                        <div id="postContent" class="rich-editor" contenteditable="true" placeholder="Start writing your thoughts..."></div>
+                    </div>
+                    
+                    <div class="editor-sidebar">
+                        <h3>Your Posts</h3>
+                        <div id="postsList" class="posts-list">
+                            <div class="loading">Loading posts...</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Posts Section -->
+            <section id="postsSection" class="content-section">
+                <div class="section-header">
+                    <h1><i class="fas fa-file-alt"></i> All Posts</h1>
+                    <div class="search-bar">
+                        <input type="text" id="searchPosts" placeholder="Search your posts...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                
+                <div id="allPostsList" class="all-posts-grid">
+                    <div class="loading">Loading all posts...</div>
+                </div>
+            </section>
+
+            <!-- Discover Section -->
+            <section id="discoverSection" class="content-section">
+                <div class="section-header">
+                    <h1><i class="fas fa-globe"></i> Discover & Search</h1>
+                    <div class="discover-tabs">
+                        <button class="tab-btn active" onclick="showDiscoverTab('blogs')">Public Blogs</button>
+                        <button class="tab-btn" onclick="showDiscoverTab('bloggers')">Search Bloggers</button>
+                    </div>
+                </div>
+                
+                <div id="blogsTab" class="discover-tab-content active">
+                    <div class="discover-search">
+                        <input type="text" id="discoverSearch" placeholder="Search blogs by title, author, or content...">
+                        <button onclick="searchPublicBlogs()" class="btn btn-primary">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
+                    
+                    <div class="discover-filters">
+                        <select id="categoryFilter">
+                            <option value="">All Categories</option>
+                            <option value="technology">Technology</option>
+                            <option value="lifestyle">Lifestyle</option>
+                            <option value="travel">Travel</option>
+                            <option value="food">Food</option>
+                            <option value="business">Business</option>
+                        </select>
+                        <select id="sortFilter">
+                            <option value="recent">Most Recent</option>
+                            <option value="popular">Most Popular</option>
+                            <option value="oldest">Oldest First</option>
+                        </select>
+                    </div>
+                    
+                    <div id="publicBlogsList" class="public-blogs-grid">
+                    <div class="blog-card">
+                        <div class="blog-header">
+                            <h3>Getting Started with Web Development</h3>
+                            <div class="blog-meta">
+                                <span class="author">by John Smith</span>
+                                <span class="date">2 days ago</span>
+                            </div>
+                        </div>
+                        <div class="blog-excerpt">
+                            Web development is an exciting field that combines creativity with technical skills. In this comprehensive guide, I'll walk you through the fundamentals of HTML, CSS, and JavaScript...
+                        </div>
+                        <div class="blog-footer">
+                            <div class="blog-stats">
+                                <span><i class="fas fa-eye"></i> 1,234 views</span>
+                                <span><i class="fas fa-heart"></i> 89 likes</span>
+                                <span><i class="fas fa-comment"></i> 23 comments</span>
+                            </div>
+                            <div class="blog-tags">
+                                <span class="tag">Technology</span>
+                                <span class="tag">Web Dev</span>
+                            </div>
+                        </div>
+                        <button onclick="viewBlog('blog1')" class="btn btn-secondary">
+                            <i class="fas fa-book-open"></i> Read More
+                        </button>
+                    </div>
+                    
+                    <div class="blog-card">
+                        <div class="blog-header">
+                            <h3>My Journey Through Southeast Asia</h3>
+                            <div class="blog-meta">
+                                <span class="author">by Sarah Johnson</span>
+                                <span class="date">1 week ago</span>
+                            </div>
+                        </div>
+                        <div class="blog-excerpt">
+                            Traveling through Southeast Asia was a life-changing experience. From the bustling streets of Bangkok to the serene beaches of Bali, every moment was filled with wonder and discovery...
+                        </div>
+                        <div class="blog-footer">
+                            <div class="blog-stats">
+                                <span><i class="fas fa-eye"></i> 856 views</span>
+                                <span><i class="fas fa-heart"></i> 67 likes</span>
+                                <span><i class="fas fa-comment"></i> 15 comments</span>
+                            </div>
+                            <div class="blog-tags">
+                                <span class="tag">Travel</span>
+                                <span class="tag">Adventure</span>
+                            </div>
+                        </div>
+                        <button onclick="viewBlog('blog2')" class="btn btn-secondary">
+                            <i class="fas fa-book-open"></i> Read More
+                        </button>
+                    </div>
+                    </div>
+                </div>
+                
+                <div id="bloggersTab" class="discover-tab-content">
+                    <div class="blogger-search">
+                        <input type="text" id="bloggerSearch" placeholder="Search bloggers by name or username...">
+                        <button onclick="searchBloggers()" class="btn btn-primary">
+                            <i class="fas fa-search"></i> Search Bloggers
+                        </button>
+                    </div>
+                    
+                    <div class="search-filters">
+                        <select id="bloggerSortFilter">
+                            <option value="recent">Most Recent</option>
+                            <option value="popular">Most Popular</option>
+                            <option value="posts">Most Posts</option>
+                            <option value="followers">Most Followers</option>
+                        </select>
+                    </div>
+                    
+                    <div id="bloggersList" class="bloggers-grid">
+                        <div class="empty-state">
+                            <i class="fas fa-search"></i>
+                            <h3>Search for Bloggers</h3>
+                            <p>Enter a name or username to find other bloggers on the platform</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Social Section -->
+            <section id="socialSection" class="content-section">
+                <div class="section-header">
+                    <h1><i class="fas fa-users"></i> Social Hub</h1>
+                    <p>Connect with other bloggers and manage your social interactions</p>
+                </div>
+                
+                <div class="social-tabs">
+                    <button class="tab-btn active" onclick="showSocialTab('following')">Following</button>
+                    <button class="tab-btn" onclick="showSocialTab('followers')">Followers</button>
+                    <button class="tab-btn" onclick="showSocialTab('bookmarks')">Bookmarks</button>
+                    <button class="tab-btn" onclick="showSocialTab('notifications')">Notifications</button>
+                </div>
+                
+                <div id="followingTab" class="social-tab-content active">
+                    <div class="users-grid" id="followingList">
+                        <div class="empty-state">You're not following anyone yet. Discover some bloggers!</div>
+                    </div>
+                </div>
+                
+                <div id="followersTab" class="social-tab-content">
+                    <div class="users-grid" id="followersList">
+                        <div class="empty-state">No followers yet. Keep writing great content!</div>
+                    </div>
+                </div>
+                
+                <div id="bookmarksTab" class="social-tab-content">
+                    <div class="bookmarks-grid" id="bookmarksList">
+                        <div class="empty-state">No bookmarked blogs yet. Start exploring!</div>
+                    </div>
+                </div>
+                
+                <div id="notificationsTab" class="social-tab-content">
+                    <div class="notifications-list" id="notificationsList">
+                        <div class="empty-state">No notifications yet.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profileSection" class="content-section">
+                <div class="section-header">
+                    <h1><i class="fas fa-user"></i> Profile</h1>
+                    <div class="profile-actions">
+                        <button class="btn btn-secondary" onclick="editProfile()">
+                            <i class="fas fa-edit"></i> Edit Profile
+                        </button>
+                        <button class="btn btn-primary" onclick="printBlog()">
+                            <i class="fas fa-print"></i> Print Blog
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="profile-layout">
+                    <div class="profile-main">
+                        <div class="profile-card">
+                            <div class="profile-header">
+                                <div class="profile-avatar">
+                                    <i class="fas fa-user-circle"></i>
+                                    <button class="avatar-edit" onclick="changeAvatar()">
+                                        <i class="fas fa-camera"></i>
+                                    </button>
+                                </div>
+                                <div class="profile-details">
+                                    <h2 id="profileName">Loading...</h2>
+                                    <p class="profile-email" id="profileEmail">Loading...</p>
+                                    <p class="profile-username" id="profileUsername">Loading...</p>
+                                    <div class="profile-badges">
+                                        <span class="badge" id="subscriptionBadge">Free Plan</span>
+                                        <span class="badge streak-badge" id="streakBadge">0 Day Streak</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="profile-bio">
+                                <h3>Bio</h3>
+                                <p id="profileBio" class="bio-text">Welcome to my blog! I love sharing my thoughts and experiences through writing.</p>
+                                <button class="btn-link" onclick="editBio()">Edit bio</button>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-stats-grid">
+                            <div class="stat-box">
+                                <div class="stat-icon">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <span class="stat-number" id="profileTotalPosts">0</span>
+                                    <span class="stat-label">Total Posts</span>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-box">
+                                <div class="stat-icon">
+                                    <i class="fas fa-pen"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <span class="stat-number" id="profileTotalWords">0</span>
+                                    <span class="stat-label">Words Written</span>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-box">
+                                <div class="stat-icon">
+                                    <i class="fas fa-fire"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <span class="stat-number" id="profileStreak">0</span>
+                                    <span class="stat-label">Day Streak</span>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-box">
+                                <div class="stat-icon">
+                                    <i class="fas fa-calendar"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <span class="stat-number" id="profileDaysActive">0</span>
+                                    <span class="stat-label">Days Active</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-sidebar">
+                        <div class="info-card">
+                            <h3><i class="fas fa-info-circle"></i> Account Info</h3>
+                            <div class="info-item">
+                                <span class="info-label">Member since:</span>
+                                <span class="info-value" id="joinDate">Loading...</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Last active:</span>
+                                <span class="info-value" id="lastActive">Today</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Subscription:</span>
+                                <span class="info-value" id="subscriptionInfo">Free Plan</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Posts this month:</span>
+                                <span class="info-value" id="monthlyPosts">0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="achievements-card">
+                            <h3><i class="fas fa-trophy"></i> Achievements</h3>
+                            <div class="achievements-grid" id="achievementsList">
+                                <div class="achievement locked">
+                                    <i class="fas fa-pen-fancy"></i>
+                                    <span>First Post</span>
+                                </div>
+                                <div class="achievement locked">
+                                    <i class="fas fa-fire"></i>
+                                    <span>7 Day Streak</span>
+                                </div>
+                                <div class="achievement locked">
+                                    <i class="fas fa-star"></i>
+                                    <span>10 Posts</span>
+                                </div>
+                                <div class="achievement locked">
+                                    <i class="fas fa-crown"></i>
+                                    <span>100 Posts</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-card">
+                            <h3><i class="fas fa-chart-line"></i> Recent Activity</h3>
+                            <div class="activity-timeline" id="activityTimeline">
+                                <div class="activity-item">
+                                    <div class="activity-icon">
+                                        <i class="fas fa-plus"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <span class="activity-text">Joined BlogPad</span>
+                                        <span class="activity-time">Today</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gamification Section -->
+            <section id="gamificationSection" class="content-section">
+                <div class="section-header">
+                    <h1><i class="fas fa-trophy"></i> Achievements & Progress</h1>
+                    <p>Track your writing journey and unlock rewards</p>
+                </div>
+                
+                <div class="gamification-overview">
+                    <div class="level-card">
+                        <div class="level-info">
+                            <div class="level-badge">
+                                <span class="level-number" id="userLevel">1</span>
+                                <span class="level-label">Level</span>
+                            </div>
+                            <div class="xp-info">
+                                <div class="xp-bar">
+                                    <div class="xp-progress" id="xpProgress" style="width: 0%"></div>
+                                </div>
+                                <span class="xp-text" id="xpText">0 / 100 XP</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="streak-card">
+                        <div class="streak-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="streak-info">
+                            <span class="streak-number" id="currentStreak">0</span>
+                            <span class="streak-label">Day Streak</span>
+                            <span class="streak-best">Best: <span id="longestStreak">0</span> days</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-mini-grid">
+                        <div class="mini-stat">
+                            <i class="fas fa-pen"></i>
+                            <span id="totalWordsGamification">0</span>
+                            <label>Words Written</label>
+                        </div>
+                        <div class="mini-stat">
+                            <i class="fas fa-medal"></i>
+                            <span id="achievementCount">0</span>
+                            <label>Achievements</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gamification-tabs">
+                    <button class="tab-btn active" onclick="showGamificationTab('achievements')">Achievements</button>
+                    <button class="tab-btn" onclick="showGamificationTab('leaderboard')">Leaderboard</button>
+                    <button class="tab-btn" onclick="showGamificationTab('rewards')">Rewards</button>
+                    <button class="tab-btn" onclick="showGamificationTab('activities')">Recent Activity</button>
+                </div>
+                
+                <div id="achievementsTab" class="gamification-tab-content active">
+                    <div class="achievements-grid" id="achievementsGrid">
+                        <!-- Achievements will be loaded here -->
+                    </div>
+                </div>
+                
+                <div id="leaderboardTab" class="gamification-tab-content">
+                    <div class="leaderboard-controls">
+                        <select id="leaderboardType" onchange="loadLeaderboard()">
+                            <option value="xp">Experience Points</option>
+                            <option value="streak">Writing Streak</option>
+                            <option value="posts">Total Posts</option>
+                            <option value="words">Words Written</option>
+                        </select>
+                    </div>
+                    <div class="leaderboard-list" id="leaderboardList">
+                        <!-- Leaderboard will be loaded here -->
+                    </div>
+                </div>
+                
+                <div id="rewardsTab" class="gamification-tab-content">
+                    <div class="rewards-section">
+                        <h3><i class="fas fa-palette"></i> Unlockable Themes</h3>
+                        <div class="themes-grid" id="themesGrid">
+                            <div class="theme-card unlocked" data-theme="default">
+                                <div class="theme-preview default-theme"></div>
+                                <h4>Default</h4>
+                                <span class="theme-status">Unlocked</span>
+                            </div>
+                            <div class="theme-card" data-theme="dark">
+                                <div class="theme-preview dark-theme"></div>
+                                <h4>Dark Mode</h4>
+                                <span class="theme-requirement">100 XP</span>
+                            </div>
+                            <div class="theme-card" data-theme="neon">
+                                <div class="theme-preview neon-theme"></div>
+                                <h4>Neon</h4>
+                                <span class="theme-requirement">500 XP</span>
+                            </div>
+                            <div class="theme-card" data-theme="vintage">
+                                <div class="theme-preview vintage-theme"></div>
+                                <h4>Vintage</h4>
+                                <span class="theme-requirement">10 Posts</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="rewards-section">
+                        <h3><i class="fas fa-star"></i> Special Features</h3>
+                        <div class="features-grid" id="featuresGrid">
+                            <div class="feature-card">
+                                <i class="fas fa-robot"></i>
+                                <h4>AI Assistant Pro</h4>
+                                <p>Advanced AI writing suggestions</p>
+                                <span class="feature-requirement">Level 5</span>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-chart-line"></i>
+                                <h4>Advanced Analytics</h4>
+                                <p>Detailed writing insights</p>
+                                <span class="feature-requirement">30-day streak</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="activitiesTab" class="gamification-tab-content">
+                    <div class="activities-list" id="activitiesList">
+                        <!-- Recent activities will be loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Typing Practice Section -->
+            <section id="typingSection" class="content-section">
+                <div class="section-header">
+                    <h1><i class="fas fa-keyboard"></i> Typing Practice</h1>
+                    <p>Improve your typing speed and accuracy</p>
+                </div>
+                
+                <div class="typing-container">
+                    <div class="typing-stats">
+                        <div class="stat-box">
+                            <span class="stat-value" id="currentWPM">0</span>
+                            <span class="stat-label">WPM</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-value" id="currentAccuracy">100</span>
+                            <span class="stat-label">Accuracy %</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-value" id="timeRemaining">60</span>
+                            <span class="stat-label">Time (s)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="typing-text-container">
+                        <div id="typingText" class="typing-text"></div>
+                    </div>
+                    
+                    <div class="typing-input-container">
+                        <input type="text" id="typingInput" class="typing-input" placeholder="Start typing here..." disabled>
+                    </div>
+                    
+                    <div class="typing-controls">
+                        <button id="startTypingBtn" class="btn btn-primary">
+                            <i class="fas fa-play"></i> Start Test
+                        </button>
+                        <button id="resetTypingBtn" class="btn btn-secondary">
+                            <i class="fas fa-redo"></i> Reset
+                        </button>
+                        <select id="difficultySelect" class="difficulty-select">
+                            <option value="easy">Easy</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div>
+                    
+                    <div class="typing-results" id="typingResults" style="display: none;">
+                        <h3>Test Complete!</h3>
+                        <div class="results-grid">
+                            <div class="result-item">
+                                <span class="result-label">Words Per Minute:</span>
+                                <span class="result-value" id="finalWPM">0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">Accuracy:</span>
+                                <span class="result-value" id="finalAccuracy">0%</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">Correct Characters:</span>
+                                <span class="result-value" id="correctChars">0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">Total Characters:</span>
+                                <span class="result-value" id="totalChars">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Subscription Section -->
+            <section id="subscriptionSection" class="content-section">
+                <div class="section-header">
+                    <h1><i class="fas fa-crown"></i> Subscription Plans</h1>
+                    <p>Choose the perfect plan for your blogging needs</p>
+                </div>
+                
+                <div class="current-plan-card">
+                    <h3>Current Plan</h3>
+                    <div class="plan-details">
+                        <span class="plan-name" id="currentPlanName">PREMIUM Plan</span>
+                        <span class="plan-status" id="currentPlanStatus">Active</span>
+                    </div>
+                    <div class="plan-usage">
+                        <div class="usage-item">
+                            <span>Posts this month:</span>
+                            <span id="currentMonthlyUsage">7/100</span>
+                        </div>
+                        <div class="usage-item">
+                            <span>Total posts:</span>
+                            <span id="currentTotalUsage">3/∞</span>
+                        </div>
+                    </div>
+                    <button onclick="manageSubscription()" class="btn btn-secondary">
+                        <i class="fas fa-cog"></i> Manage Subscription
+                    </button>
+                </div>
+                
+                <div class="plans-grid">
+                    <div class="plan-card free-plan">
+                        <div class="plan-header">
+                            <h3>Free</h3>
+                            <div class="plan-price">
+                                <span class="price">$0</span>
+                                <span class="period">/month</span>
+                            </div>
+                        </div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check"></i> 5 posts per month</li>
+                            <li><i class="fas fa-check"></i> Basic editor</li>
+                            <li><i class="fas fa-check"></i> Community support</li>
+                            <li><i class="fas fa-times"></i> No custom domain</li>
+                            <li><i class="fas fa-times"></i> No analytics</li>
+                        </ul>
+                        <button class="btn btn-secondary" disabled>Current Plan</button>
+                    </div>
+                    
+                    <div class="plan-card premium-plan featured">
+                        <div class="plan-badge">Most Popular</div>
+                        <div class="plan-header">
+                            <h3>Premium</h3>
+                            <div class="plan-price">
+                                <span class="price">$9</span>
+                                <span class="period">/month</span>
+                            </div>
+                        </div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check"></i> 100 posts per month</li>
+                            <li><i class="fas fa-check"></i> Advanced editor</li>
+                            <li><i class="fas fa-check"></i> Priority support</li>
+                            <li><i class="fas fa-check"></i> Custom domain</li>
+                            <li><i class="fas fa-check"></i> Analytics dashboard</li>
+                        </ul>
+                        <button onclick="upgradeToPlan('premium', 9)" class="btn btn-primary">Upgrade Now</button>
+                    </div>
+                    
+                    <div class="plan-card business-plan">
+                        <div class="plan-header">
+                            <h3>Business</h3>
+                            <div class="plan-price">
+                                <span class="price">$19</span>
+                                <span class="period">/month</span>
+                            </div>
+                        </div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check"></i> Unlimited posts</li>
+                            <li><i class="fas fa-check"></i> Multiple authors</li>
+                            <li><i class="fas fa-check"></i> 24/7 phone support</li>
+                            <li><i class="fas fa-check"></i> White-label options</li>
+                            <li><i class="fas fa-check"></i> Advanced analytics</li>
+                        </ul>
+                        <button onclick="upgradeToPlan('business', 19)" class="btn btn-primary">Upgrade Now</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Feedback Section -->
+            <section id="feedbackSection" class="content-section">
+                <div class="section-header">
+                    <h1><i class="fas fa-comment-dots"></i> Feedback & Ratings</h1>
+                    <p>Help us improve BlogPad with your valuable feedback</p>
+                </div>
+                
+                <div class="feedback-container">
+                    <div class="feedback-form-card">
+                        <h3><i class="fas fa-comment-dots"></i> Share Your Feedback</h3>
+                        <form id="feedbackForm">
+                            <div class="rating-section">
+                                <label>Rate your experience:</label>
+                                <div class="star-rating" id="starRating">
+                                    <span class="star" data-rating="1">★</span>
+                                    <span class="star" data-rating="2">★</span>
+                                    <span class="star" data-rating="3">★</span>
+                                    <span class="star" data-rating="4">★</span>
+                                    <span class="star" data-rating="5">★</span>
+                                </div>
+                                <span class="rating-text" id="ratingText">Click to rate</span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="feedbackCategory">Category</label>
+                                <select id="feedbackCategory" required>
+                                    <option value="">Select category</option>
+                                    <option value="bug">Bug Report</option>
+                                    <option value="feature">Feature Request</option>
+                                    <option value="improvement">Improvement Suggestion</option>
+                                    <option value="general">General Feedback</option>
+                                    <option value="support">Support Issue</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="feedbackTitle">Title</label>
+                                <input type="text" id="feedbackTitle" placeholder="Brief title for your feedback" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="feedbackMessage">Message</label>
+                                <textarea id="feedbackMessage" rows="5" placeholder="Please describe your feedback in detail..." required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> Submit Feedback
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="feedback-stats-card">
+                        <h3><i class="fas fa-chart-bar"></i> Community Ratings</h3>
+                        <div class="overall-rating">
+                            <div class="rating-display">
+                                <span class="rating-number">4.8</span>
+                                <div class="rating-stars">
+                                    <span class="star filled">★</span>
+                                    <span class="star filled">★</span>
+                                    <span class="star filled">★</span>
+                                    <span class="star filled">★</span>
+                                    <span class="star half">★</span>
+                                </div>
+                                <span class="rating-count">Based on 1,247 reviews</span>
+                            </div>
+                        </div>
+                        
+                        <div class="rating-breakdown">
+                            <div class="rating-bar">
+                                <span>5 stars</span>
+                                <div class="bar"><div class="fill" style="width: 75%"></div></div>
+                                <span>75%</span>
+                            </div>
+                            <div class="rating-bar">
+                                <span>4 stars</span>
+                                <div class="bar"><div class="fill" style="width: 18%"></div></div>
+                                <span>18%</span>
+                            </div>
+                            <div class="rating-bar">
+                                <span>3 stars</span>
+                                <div class="bar"><div class="fill" style="width: 5%"></div></div>
+                                <span>5%</span>
+                            </div>
+                            <div class="rating-bar">
+                                <span>2 stars</span>
+                                <div class="bar"><div class="fill" style="width: 1%"></div></div>
+                                <span>1%</span>
+                            </div>
+                            <div class="rating-bar">
+                                <span>1 star</span>
+                                <div class="bar"><div class="fill" style="width: 1%"></div></div>
+                                <span>1%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recent-feedback">
+                    <h3><i class="fas fa-comments"></i> Recent Feedback</h3>
+                    <div class="feedback-list">
+                        <div class="feedback-item">
+                            <div class="feedback-header">
+                                <div class="user-info">
+                                    <span class="user-name">Sarah M.</span>
+                                    <div class="user-rating">
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                    </div>
+                                </div>
+                                <span class="feedback-date">2 days ago</span>
+                            </div>
+                            <p class="feedback-text">"Amazing platform! The AI writing assistant is incredibly helpful and the interface is so intuitive. Highly recommend!"</p>
+                        </div>
+                        
+                        <div class="feedback-item">
+                            <div class="feedback-header">
+                                <div class="user-info">
+                                    <span class="user-name">John D.</span>
+                                    <div class="user-rating">
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star">★</span>
+                                    </div>
+                                </div>
+                                <span class="feedback-date">1 week ago</span>
+                            </div>
+                            <p class="feedback-text">"Great blogging platform with excellent features. Would love to see more customization options for themes."</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settingsSection" class="content-section">
+                <div class="section-header">
+                    <h1><i class="fas fa-cog"></i> Settings</h1>
+                    <p>Customize your BlogPad experience</p>
+                </div>
+                
+                <div class="settings-grid">
+                    <div class="settings-card">
+                        <h3><i class="fas fa-palette"></i> Appearance</h3>
+                        <div class="setting-item">
+                            <label for="themeSelect">Theme</label>
+                            <select id="themeSelect">
+                                <option value="light">Light Mode</option>
+                                <option value="dark">Dark Mode</option>
+                                <option value="auto">Auto (System)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="fontSizeSelect">Editor Font Size</label>
+                            <select id="fontSizeSelect">
+                                <option value="14">Small (14px)</option>
+                                <option value="16" selected>Medium (16px)</option>
+                                <option value="18">Large (18px)</option>
+                                <option value="20">Extra Large (20px)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="fontFamilySelect">Editor Font</label>
+                            <select id="fontFamilySelect">
+                                <option value="Inter">Inter (Default)</option>
+                                <option value="Georgia">Georgia</option>
+                                <option value="Times New Roman">Times New Roman</option>
+                                <option value="Courier New">Courier New</option>
+                                <option value="Arial">Arial</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <h3><i class="fas fa-edit"></i> Writing Preferences</h3>
+                        <div class="setting-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="autoSave" checked>
+                                <span class="checkmark"></span>
+                                Auto-save posts while writing
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="wordCount">
+                                <span class="checkmark"></span>
+                                Show word count in editor
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="spellCheck" checked>
+                                <span class="checkmark"></span>
+                                Enable spell check
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="defaultTitle">Default Post Title</label>
+                            <input type="text" id="defaultTitle" placeholder="Untitled Post" class="setting-input">
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <h3><i class="fas fa-bell"></i> Notifications</h3>
+                        <div class="setting-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="emailNotifications">
+                                <span class="checkmark"></span>
+                                Email notifications
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="writingReminders">
+                                <span class="checkmark"></span>
+                                Daily writing reminders
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="reminderTime">Reminder Time</label>
+                            <input type="time" id="reminderTime" value="09:00" class="setting-input">
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <h3><i class="fas fa-shield-alt"></i> Privacy & Security</h3>
+                        <div class="setting-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="publicProfile">
+                                <span class="checkmark"></span>
+                                Make profile public
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="analyticsTracking" checked>
+                                <span class="checkmark"></span>
+                                Allow analytics tracking
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <button id="changePasswordBtn" class="btn btn-warning">
+                                <i class="fas fa-key"></i> Change Password
+                            </button>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <button id="twoFactorBtn" class="btn btn-secondary">
+                                <i class="fas fa-mobile-alt"></i> Enable 2FA
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <h3><i class="fas fa-database"></i> Data Management</h3>
+                        <div class="setting-item">
+                            <button id="exportDataBtn" class="btn btn-secondary">
+                                <i class="fas fa-download"></i> Export My Data
+                            </button>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <button id="importDataBtn" class="btn btn-secondary">
+                                <i class="fas fa-upload"></i> Import Data
+                            </button>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <button id="clearCacheBtn" class="btn btn-secondary">
+                                <i class="fas fa-broom"></i> Clear Cache
+                            </button>
+                        </div>
+                        
+                        <div class="setting-item danger-zone">
+                            <h4>Danger Zone</h4>
+                            <button id="deleteAccountBtn" class="btn btn-danger">
+                                <i class="fas fa-trash"></i> Delete Account
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <h3><i class="fas fa-info-circle"></i> About</h3>
+                        <div class="about-info">
+                            <p><strong>BlogPad</strong> v1.0.0</p>
+                            <p>Professional blogging platform</p>
+                            <div class="about-links">
+                                <a href="#" class="about-link">Help Center</a>
+                                <a href="#" class="about-link">Privacy Policy</a>
+                                <a href="#" class="about-link">Terms of Service</a>
+                                <a href="#" class="about-link">Contact Support</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen" style="display: none;">
+        <div class="loading-content">
+            <h2>Preparing your Dashboard...</h2>
+            <div class="loading-icon">
+                <i class="fas fa-desktop"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Blog Viewer Modal -->
+    <div id="blogViewerModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content blog-viewer">
+            <div class="blog-viewer-header">
+                <button onclick="closeBlogViewer()" class="close-modal">×</button>
+            </div>
+            <div class="blog-viewer-content">
+                <h1 id="blogViewerTitle">Blog Title</h1>
+                <div class="blog-viewer-meta">
+                    <div class="author-info">
+                        <span class="author-name" id="blogViewerAuthor">Author Name</span>
+                        <span class="publish-date" id="blogViewerDate">Published Date</span>
+                    </div>
+                    <div class="blog-actions">
+                        <button onclick="likeBlog()" class="action-btn like-btn">
+                            <i class="fas fa-heart"></i> <span id="likeCount">0</span>
+                        </button>
+                        <button onclick="bookmarkBlog()" class="action-btn bookmark-btn">
+                            <i class="fas fa-bookmark"></i> Bookmark
+                        </button>
+                        <button onclick="followAuthor()" class="action-btn follow-btn">
+                            <i class="fas fa-user-plus"></i> Follow
+                        </button>
+                        <button onclick="shareBlog()" class="action-btn share-btn">
+                            <i class="fas fa-share"></i> Share
+                        </button>
+                    </div>
+                </div>
+                <div class="blog-content" id="blogViewerContent">
+                    Blog content will be loaded here...
+                </div>
+                <div class="blog-tags-section">
+                    <div id="blogViewerTags" class="blog-tags"></div>
+                </div>
+                
+                <div class="comments-section">
+                    <h3>Comments (<span id="commentCount">0</span>)</h3>
+                    
+                    <div class="comment-form">
+                        <textarea id="commentInput" placeholder="Write a comment..." rows="3"></textarea>
+                        <button onclick="addComment()" class="btn btn-primary">
+                            <i class="fas fa-comment"></i> Post Comment
+                        </button>
+                    </div>
+                    
+                    <div id="commentsList" class="comments-list">
+                        <!-- Comments will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Mobile Menu Toggle -->
+    <button id="mobileMenuToggle" class="mobile-menu-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <script src="dashboard.js"></script>
+</body>
+</html>
