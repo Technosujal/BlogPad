@@ -20,10 +20,5 @@
       "dest": "/public/$1"
     }
   ],
-  "env": {
-    "MONGODB_URI": "@mongodb_uri",
-    "SESSION_SECRET": "@session_secret",
-    "OPENAI_API_KEY": "@openai_api_key",
-    "NODE_ENV": "production"
-  }
+
 }
